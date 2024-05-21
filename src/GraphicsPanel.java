@@ -3,31 +3,27 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener{
-    private int[] mapNum;
-    private Tile[] map;
+    private TileMap mainMap;
     private Player player;
     private boolean[] pressedKeys;
     private int y;
     public GraphicsPanel(String name) {
+        mainMap = new TileMap();
         player = new Player("src/player.png");
-        mapNum = new int[]{1, 0, 0, 0, 0, 0, 0, 1};
-        map = new Tile[8];
         y = 0;
         pressedKeys = new boolean[128];
-        for (int i = 0; i < mapNum.length; i++) {
-            if (mapNum[i] == 1) {
-                map[i] = new Tile(false, "src/wall.png", 0, y);
-            } else {
-                map[i] = new Tile(true, "src/wood.png", 0, y);
-            }
-            y+=32;
-        }
+        addKeyListener(this);
+        addMouseListener(this);
+        setFocusable(true);
+        requestFocusInWindow();
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < map.length; i++) {
-            g.drawImage(map[i].getTile(), map[i].getXCoord(), map[i].getYCoord(), null);
+        for (int r = 0; r < mainMap.getMap().length; r++) {
+            for (int c = 0; c < mainMap.getMap()[r].length; c++) {
+                g.drawImage(mainMap.getMap()[r][c].getTile(), mainMap.getMap()[r][c].getXCoord(), mainMap.getMap()[r][c].getYCoord(), null);
+            }
         }
         g.drawImage(player.getImage(), player.getXCoord(), player.getYCoord(), null);
     }
@@ -40,16 +36,16 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void keyTyped(KeyEvent e) {
         if (pressedKeys[65]) {
-            player.moveLeft();
+            player.moveLeft(mainMap.getMap());
         }
         if (pressedKeys[68]) {
-            player.moveRight();
+            player.moveRight(mainMap.getMap());
         }
         if (pressedKeys[87]) {
-            player.moveUp();
+            player.moveUp(mainMap.getMap());
         }
         if (pressedKeys[83]) {
-            player.moveDown();
+            player.moveDown(mainMap.getMap());
         }
 
     }

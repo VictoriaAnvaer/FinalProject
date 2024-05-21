@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/7352316/java-collision-detection-with-tiled-maps

@@ -30,7 +30,7 @@ public class Tile {
     public boolean getCollide() {
         return collide;
     }
-    public Rectangle playerRect() {
+    public Rectangle TileRect() {
         int imageHeight = getTile().getHeight();
         int imageWidth = getTile().getWidth();
         Rectangle rect = new Rectangle(xCoord, yCoord, imageWidth, imageHeight);
