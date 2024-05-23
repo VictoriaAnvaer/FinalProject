@@ -34,9 +34,9 @@ public class TileMap {
         for (int r = 0; r < mapNum.length; r++) {
             for (int c = 0; c < mapNum[r].length; c++) {
                 if (mapNum[r][c] == 1) {
-                    map[r][c] = new Tile(true, "src/wall.png", x, y);
+                    map[r][c] = new Tile(true, "src/images/wall.png", x, y);
                 } else {
-                    map[r][c] = new Tile(false, "src/wood.png", x, y);
+                    map[r][c] = new Tile(false, "src/images/wood.png", x, y);
                 }
                 x+=32;
             }

@@ -6,11 +6,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private TileMap mainMap;
     private Player player;
     private boolean[] pressedKeys;
-    private int y;
     public GraphicsPanel(String name) {
         mainMap = new TileMap();
-        player = new Player("src/player.png");
-        y = 0;
+        player = new Player("src/images/player.png");
         pressedKeys = new boolean[128];
         addKeyListener(this);
         addMouseListener(this);
