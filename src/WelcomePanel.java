@@ -4,6 +4,7 @@ import java.awt.event.*;
 public class WelcomePanel extends JPanel implements KeyListener, MouseListener, ActionListener{
     private JTextField enterName;
     private JButton startButton;
+
     WelcomePanel(String name) {
         enterName = new JTextField(20);
         startButton = new JButton("Start Adventure");
@@ -23,8 +24,6 @@ public class WelcomePanel extends JPanel implements KeyListener, MouseListener, 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-        }
 
     }
 
