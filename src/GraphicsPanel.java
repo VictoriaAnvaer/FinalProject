@@ -10,7 +10,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private static int worldX = 0;
     public GraphicsPanel(String name) {
         mainMap = new TileMap();
-        player = new Player("src/images/player.png");
+        player = new Player();
         pressedKeys = new boolean[128];
         addKeyListener(this);
         addMouseListener(this);
@@ -47,29 +47,32 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (pressedKeys[65]) {
-            player.moveLeft();
+        if (!player.isColliding(mainMap.getMap())) {
+            if (pressedKeys[65]) {
+                player.moveLeft();
+            }
+            if (pressedKeys[68]) {
+                player.moveRight();
+            }
+            if (pressedKeys[87]) {
+                player.moveUp();
+            }
+            if (pressedKeys[83]) {
+                player.moveDown();
+            }
         }
-        if (pressedKeys[68]) {
-            player.moveRight();
-        }
-        if (pressedKeys[87]) {
-            player.moveUp();
-        }
-        if (pressedKeys[83]) {
-            player.moveDown();
-        }
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        Animation.setKeyPressed(true);
         int key = e.getKeyCode();
         pressedKeys[key] = true;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        Animation.setKeyPressed(false);
         int key = e.getKeyCode();
         pressedKeys[key] = false;
     }

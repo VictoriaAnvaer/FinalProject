@@ -6,49 +6,59 @@ import java.io.IOException;
 
 public class Player {
     private double moveAmount;
-    private BufferedImage image;
+    private Animation run;
 
-    public Player(String imageName) {
+    public Player() {
         moveAmount = 5;
-        try {
-            image = ImageIO.read(new File(imageName));
-        } catch (IOException e) {
+        BufferedImage[][] runAnimation = new BufferedImage[4][3];
+        for (int r = 0; r < runAnimation.length; r++) {
+            for (int c = 0; c < runAnimation[0].length; c++) {
+                String filename = "src/images/player/" + r + c + ".png";
+                try {
+                    runAnimation[r][c] = (ImageIO.read(new File(filename)));
+                } catch (IOException e) {
+                }
+            }
         }
+        run = new Animation(runAnimation, 100);
     }
 
     public BufferedImage getImage() {
-        return image;
+        return run.getActiveFrame();
     }
 
     public Rectangle playerRect() {
-        int imageHeight = getImage().getHeight();
-        int imageWidth = getImage().getWidth();
-        Rectangle rect = new Rectangle(300, 295, imageWidth, imageHeight);
+        Rectangle rect = new Rectangle(310, 330, getImage().getWidth() - 20, getImage().getHeight() - 60);
         return rect;
     }
 
     public void moveRight() {
+        run.setCurrentDirection(2);
         GraphicsPanel.changeWorldX(-moveAmount);
 
     }
 
     public void moveLeft() {
+        run.setCurrentDirection(1);
         GraphicsPanel.changeWorldX(moveAmount);
 
     }
 
     public void moveUp() {
+        run.setCurrentDirection(3);
         GraphicsPanel.changeWorldY(moveAmount);
     }
 
     public void moveDown() {
+        run.setCurrentDirection(0);
         GraphicsPanel.changeWorldY(-moveAmount);
     }
 
 
     public boolean isColliding(Tile[][] tileMap) {
+        // world x and world y
         return false;
-        }
+    }
     }
 
 
