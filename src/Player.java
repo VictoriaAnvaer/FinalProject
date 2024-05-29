@@ -20,7 +20,7 @@ public class Player {
                 }
             }
         }
-        run = new Animation(runAnimation, 100);
+        run = new Animation(runAnimation, 150);
     }
 
     public BufferedImage getImage() {
@@ -56,9 +56,39 @@ public class Player {
 
 
     public boolean isColliding(Tile[][] tileMap) {
-        // world x and world y
+        for (int r = 0; r < tileMap.length; r++) {
+            for (int c = 0; c < tileMap[r].length; c++) {
+                if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
+    public String isCollidingWIP(Tile[][] tileMap) {
+        for (int r = 0; r < tileMap.length; r++) {
+            for (int c = 0; c < tileMap[r].length; c++) {
+                if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
+                    System.out.println(tileMap[r][c].tileRect().x + " " + tileMap[r][c].tileRect().y);
+                    if (tileMap[r][c].tileRect().contains(310, 330, 1, 40)) {
+                        System.out.println("left");
+                        return "left";
+                    } else if (tileMap[r][c].tileRect().contains(310, 330, 28, 1)) {
+                        System.out.println("up");
+                        return "up";
+                    } else if (tileMap[r][c].tileRect().contains(338, 330, 1, 40)) {
+                        System.out.println("right");
+                        return "right";
+                    } else {
+                        System.out.println("down");
+                        return "down";
+                    }
+                }
+            }
+        }
+        return " ";
+
     }
+}
 
 

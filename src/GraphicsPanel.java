@@ -47,20 +47,20 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (!player.isColliding(mainMap.getMap())) {
-            if (pressedKeys[65]) {
-                player.moveLeft();
-            }
-            if (pressedKeys[68]) {
-                player.moveRight();
-            }
-            if (pressedKeys[87]) {
-                player.moveUp();
-            }
-            if (pressedKeys[83]) {
-                player.moveDown();
-            }
+        String collide = player.isCollidingWIP(mainMap.getMap());
+        if (pressedKeys[65] && !collide.equals("left")) {
+            player.moveLeft();
         }
+        if (pressedKeys[68] && !collide.equals("right")) {
+            player.moveRight();
+        }
+        if (pressedKeys[87] && !collide.equals("up")) {
+            player.moveUp();
+        }
+        if (pressedKeys[83] && !collide.equals("down")) {
+            player.moveDown();
+        }
+
     }
 
     @Override
