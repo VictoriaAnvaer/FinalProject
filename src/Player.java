@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class Player {
     private double moveAmount;
+    private double moveX;
+    private double moveY;
     private Animation run;
 
     public Player() {
@@ -20,7 +22,7 @@ public class Player {
                 }
             }
         }
-        run = new Animation(runAnimation, 150);
+        run = new Animation(runAnimation, 150, false);
     }
 
     public BufferedImage getImage() {
@@ -28,66 +30,59 @@ public class Player {
     }
 
     public Rectangle playerRect() {
-        Rectangle rect = new Rectangle(310, 330, getImage().getWidth() - 20, getImage().getHeight() - 60);
+        Rectangle rect = new Rectangle(310, 330, getImage().getWidth() - 20, getImage().getHeight() - 50);
         return rect;
+    }
+    public void setKeyPressAnimation(boolean set) {
+        run.setKeyPressed(set);
     }
 
     public void moveRight() {
         run.setCurrentDirection(2);
         GraphicsPanel.changeWorldX(-moveAmount);
+        moveX = -moveAmount;
 
     }
 
     public void moveLeft() {
         run.setCurrentDirection(1);
         GraphicsPanel.changeWorldX(moveAmount);
+        moveX = moveAmount;
 
     }
 
     public void moveUp() {
         run.setCurrentDirection(3);
         GraphicsPanel.changeWorldY(moveAmount);
+        moveY = moveAmount;
     }
 
     public void moveDown() {
         run.setCurrentDirection(0);
         GraphicsPanel.changeWorldY(-moveAmount);
+        moveY = -moveAmount;
     }
 
 
-    public boolean isColliding(Tile[][] tileMap) {
-        for (int r = 0; r < tileMap.length; r++) {
-            for (int c = 0; c < tileMap[r].length; c++) {
-                if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
     public String isCollidingWIP(Tile[][] tileMap) {
         for (int r = 0; r < tileMap.length; r++) {
             for (int c = 0; c < tileMap[r].length; c++) {
                 if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
-                    System.out.println(tileMap[r][c].tileRect().x + " " + tileMap[r][c].tileRect().y);
-                    if (tileMap[r][c].tileRect().contains(310, 330, 1, 40)) {
-                        System.out.println("left");
-                        return "left";
-                    } else if (tileMap[r][c].tileRect().contains(310, 330, 28, 1)) {
-                        System.out.println("up");
-                        return "up";
-                    } else if (tileMap[r][c].tileRect().contains(338, 330, 1, 40)) {
-                        System.out.println("right");
+                    if (moveX < 0) {
                         return "right";
-                    } else {
-                        System.out.println("down");
+                    } else if (moveX > 0) {
+                        return "left";
+                    } else if (moveY < 0) {
                         return "down";
+                    } else if (moveY > 0) {
+                        return "up";
                     }
                 }
             }
         }
+        moveX = 0;
+        moveY = 0;
         return " ";
-
     }
 }
 
