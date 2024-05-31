@@ -36,4 +36,10 @@ public class Star {
         Rectangle rect = new Rectangle(xCoord + GraphicsPanel.getWorldX(), yCoord + GraphicsPanel.getWorldY(),getImage().getWidth(), getImage().getHeight());
         return rect;
     }
+    public boolean intersectPlayer(Player player) {
+        if (player.playerRect().intersects(starRect())) {
+            return true;
+        }
+        return false;
+    }
 }

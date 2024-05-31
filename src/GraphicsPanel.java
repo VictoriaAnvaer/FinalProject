@@ -7,6 +7,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private Player player;
     private Star star;
     private boolean[] pressedKeys;
+    private boolean enemyFight;
     private static int worldY = 0;
     private static int worldX = 0;
     public GraphicsPanel(String name) {
@@ -22,13 +23,23 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int r = 0; r < mainMap.getMap().length; r++) {
-            for (int c = 0; c < mainMap.getMap()[r].length; c++) {
-                g.drawImage(mainMap.getMap()[r][c].getTile(), mainMap.getMap()[r][c].getXCoord() + worldX, mainMap.getMap()[r][c].getYCoord() + worldY, null);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 640, 640);
+        enemyFight = star.intersectPlayer(player);
+        if (!enemyFight) {
+            for (int r = 0; r < mainMap.getMap().length; r++) {
+                for (int c = 0; c < mainMap.getMap()[r].length; c++) {
+                    g.drawImage(mainMap.getMap()[r][c].getTile(), mainMap.getMap()[r][c].getXCoord() + worldX, mainMap.getMap()[r][c].getYCoord() + worldY, null);
+                }
             }
+            g.drawImage(star.getImage(), star.getXCoord() + worldX, star.getYCoord() + worldY, null);
+            g.drawImage(player.getImage(), 300, 295, null);
         }
-        g.drawImage(star.getImage(), star.getXCoord() + worldX, star.getYCoord() + worldY, null);
-        g.drawImage(player.getImage(), 300, 295, null);
+        if (enemyFight) {
+            g.setColor(Color.white);
+            g.drawString("test", 100, 100);
+
+        }
     }
     public static void changeWorldX(double change) {
         worldX+=(int) change;
@@ -50,20 +61,21 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void keyTyped(KeyEvent e) {
-        String collide = player.isCollidingWIP(mainMap.getMap());
-        if (pressedKeys[65] && !collide.equals("left")) {
-            player.moveLeft();
+        if (!enemyFight) {
+            String collide = player.isCollidingWIP(mainMap.getMap());
+            if (pressedKeys[65] && !collide.equals("left")) {
+                player.moveLeft();
+            }
+            if (pressedKeys[68] && !collide.equals("right")) {
+                player.moveRight();
+            }
+            if (pressedKeys[87] && !collide.equals("up")) {
+                player.moveUp();
+            }
+            if (pressedKeys[83] && !collide.equals("down")) {
+                player.moveDown();
+            }
         }
-        if (pressedKeys[68] && !collide.equals("right")) {
-            player.moveRight();
-        }
-        if (pressedKeys[87] && !collide.equals("up")) {
-            player.moveUp();
-        }
-        if (pressedKeys[83] && !collide.equals("down")) {
-            player.moveDown();
-        }
-
     }
 
     @Override
