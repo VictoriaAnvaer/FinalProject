@@ -6,6 +6,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private TileMap mainMap;
     private Player player;
     private Star star;
+    private fightMap fight;
     private boolean[] pressedKeys;
     private boolean enemyFight;
     private static int worldY = 0;
@@ -14,6 +15,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         mainMap = new TileMap();
         player = new Player();
         star = new Star(32, 112);
+        fight = null;
         pressedKeys = new boolean[128];
         addKeyListener(this);
         addMouseListener(this);
@@ -36,8 +38,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             g.drawImage(player.getImage(), 300, 295, null);
         }
         if (enemyFight) {
+            fight = new fightMap("src/images/placeholderMenu.png", "src/images/enemy1.png", "placeholder", 100);
+            g.drawImage(fight.getEnemy(), 400, 100, null);
             g.setColor(Color.white);
-            g.drawString("test", 100, 100);
+            g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+            g.drawString("ENEMY STATS", 30, 50);
+            g.drawString(fight.getEnemyName(), 30, 80);
+            g.drawString(fight.getEnemyHealth() + "", 30, 110);
+            g.drawImage(fight.getMenu(), 20, 350, null);
+
 
         }
     }
