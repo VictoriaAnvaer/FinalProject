@@ -1,30 +1,42 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener{
     private TileMap mainMap;
     private Player player;
     private Star star;
-    private fightMap fight;
     private boolean[] pressedKeys;
     private boolean enemyFight;
     private static int worldY = 0;
     private static int worldX = 0;
+    // for welcome menu
+    private boolean startMenu;
+    private JTextField enterName;
+    private JButton startButton;
     public GraphicsPanel(String name) {
+        startMenu = false;
         mainMap = new TileMap();
         player = new Player();
         star = new Star(32, 112);
-        fight = null;
         pressedKeys = new boolean[128];
         addKeyListener(this);
         addMouseListener(this);
         setFocusable(true);
         requestFocusInWindow();
+        // welcome menu
+        //startMenu = true;
+        enterName = new JTextField(20);
+        startButton = new JButton("Start Adventure");
+        add(enterName);
+        add(startButton);
+        startButton.addActionListener(this);
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (startMenu) {
+
+        }
         g.setColor(Color.black);
         g.fillRect(0, 0, 640, 640);
         enemyFight = star.intersectPlayer(player);
@@ -38,16 +50,17 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             g.drawImage(player.getImage(), 300, 295, null);
         }
         if (enemyFight) {
-            fight = new fightMap("src/images/placeholderMenu.png", "src/images/enemy1.png", "placeholder", 100);
-            g.drawImage(fight.getEnemy(), 400, 100, null);
+            g.drawImage(star.getFight().getEnemy(), 400, 100, null);
             g.setColor(Color.white);
             g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
             g.drawString("ENEMY STATS", 30, 50);
-            g.drawString(fight.getEnemyName(), 30, 80);
-            g.drawString(fight.getEnemyHealth() + "", 30, 110);
-            g.drawImage(fight.getMenu(), 20, 350, null);
-
-
+            g.drawString(star.getFight().getEnemyName(), 30, 80);
+            g.drawString(star.getFight().getEnemyHealth() + "", 30, 110);
+            g.drawImage(star.getFight().getMenu(), 15, 285, null);
+            if (star.getFight().getEnemyHealth() <= 0) {
+                changeWorldX(-10);
+                enemyFight = false;
+            }
         }
     }
     public static void changeWorldX(double change) {
@@ -103,7 +116,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if (enemyFight) {
+            if ((star.getFight().getAttack().contains(getMousePosition()))) {
+                star.getFight().reduceHealth();
+            } else if (star.getFight().getQuit().contains(getMousePosition())) {
+                changeWorldX(-10);
+                enemyFight = false;
+            }
+        }
     }
 
     @Override

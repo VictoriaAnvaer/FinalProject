@@ -8,6 +8,7 @@ public class Star {
     private Animation animation;
     private int xCoord;
     private int yCoord;
+    private fightMap fight;
     Star(int xCoord, int yCoord) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
@@ -22,6 +23,7 @@ public class Star {
             }
         }
         animation = new Animation(runAnimation, 220, true);
+        fight = new fightMap("src/images/menu.png", "src/images/enemy1.png", "placeholder", 100);
     }
     public int getXCoord() {
         return xCoord;
@@ -31,6 +33,9 @@ public class Star {
     }
     public BufferedImage getImage() {
         return animation.getActiveFrame();
+    }
+    public fightMap getFight() {
+        return fight;
     }
     public Rectangle starRect() {
         Rectangle rect = new Rectangle(xCoord + GraphicsPanel.getWorldX(), yCoord + GraphicsPanel.getWorldY(),getImage().getWidth(), getImage().getHeight());

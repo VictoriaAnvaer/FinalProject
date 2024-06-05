@@ -5,10 +5,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class fightMap {
-    BufferedImage menu;
-    BufferedImage enemy;
-    String enemyName;
-    int enemyHealth;
+    private BufferedImage menu;
+    private BufferedImage enemy;
+    private String enemyName;
+    private int enemyHealth;
+
     fightMap(String menuFile, String enemyFile, String enemyName, int enemyHealth) {
         try {
             enemy = ImageIO.read(new File(enemyFile));
@@ -21,9 +22,19 @@ public class fightMap {
     public BufferedImage getMenu() {
         return menu;
     }
-    //public Rectangle getAttack() {
-//
-    //}
+    public Rectangle getAttack() {
+        Rectangle rect = new Rectangle(38, 403, 212, 65);
+        return rect;
+
+    }
+    public Rectangle getQuit() {
+        Rectangle rect = new Rectangle(348, 403, 212, 65);
+        return rect;
+
+    }
+    public void reduceHealth() {
+        enemyHealth--;
+    }
     public BufferedImage getEnemy() {
         return enemy;
     }
