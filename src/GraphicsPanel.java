@@ -14,7 +14,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private JTextField enterName;
     private JButton startButton;
     public GraphicsPanel(String name) {
-        startMenu = false;
         mainMap = new TileMap();
         player = new Player();
         star = new Star(32, 112);
@@ -23,20 +22,17 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         addMouseListener(this);
         setFocusable(true);
         requestFocusInWindow();
-        // welcome menu
         //startMenu = true;
         enterName = new JTextField(20);
         startButton = new JButton("Start Adventure");
-        add(enterName);
-        add(startButton);
+       // add(enterName);
+        //add(startButton);
         startButton.addActionListener(this);
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (startMenu) {
-
-        }
+        //if (startMenu) {}
         g.setColor(Color.black);
         g.fillRect(0, 0, 640, 640);
         enemyFight = star.intersectPlayer(player);
@@ -84,7 +80,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void keyTyped(KeyEvent e) {
         if (!enemyFight) {
-            String collide = player.isCollidingWIP(mainMap.getMap());
+            String collide = player.isCollidingWIP(mainMap.getMap(), mainMap.getFunction());
             if (pressedKeys[65] && !collide.equals("left")) {
                 player.moveLeft();
             }

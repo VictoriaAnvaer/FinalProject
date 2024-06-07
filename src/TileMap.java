@@ -3,6 +3,7 @@ import java.awt.*;
 public class TileMap {
     private Tile[][] map;
     private int[][] mapNum;
+    private int[][] mapFunction;
     private int y;
     private int x;
     TileMap() {
@@ -53,4 +54,10 @@ public class TileMap {
         return map;
     }
 
+    public int[][] getFunction() {
+        return mapFunction;
+    }
+    public void ElevatorUse() {
+
+    }
 }

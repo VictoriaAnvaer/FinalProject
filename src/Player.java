@@ -64,7 +64,7 @@ public class Player {
     }
 
 
-    public String isCollidingWIP(Tile[][] tileMap) {
+    public String isCollidingWIP(Tile[][] tileMap, int[][] function) {
         for (int r = 0; r < tileMap.length; r++) {
             for (int c = 0; c < tileMap[r].length; c++) {
                 if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
