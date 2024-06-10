@@ -42,13 +42,13 @@ public class TileMap {
                 {0, 0, 0, 1, 1, 6, 6, 1, 1, 0, 0, 0},
                 {0, 0, 0, 0, 1, 6, 6, 1, 0, 0, 0, 0},
                 {0, 0, 0, 0, 1, 6, 6, 1, 0, 0, 0, 0},
-                {1, 1, 1, 1, 1, 6, 6, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},
                 {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},
                 {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},
                 {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},
-                {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},//18
-                {1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1},//19
+                {1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1},
+                {1, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                 {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
                 {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
                 {1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
@@ -80,7 +80,6 @@ public class TileMap {
         mapObjects[15] = new Tile(true, "src/images/objects/6.png", 448, 384);
         mapObjects[16] = new Tile(true, "src/images/objects/5.png", 448, 384);
         mapObjects[17] = new Tile(true, "src/images/objects/6.png", 448, 416);
-        // 672 // 96
         mapObjects[18] = new Tile(true, "src/images/objects/3.png", 256, 352);
         mapObjects[19] = new Tile(true, "src/images/objects/4.png", 256, 384);
         mapObjects[20] = new Tile(true, "src/images/objects/3.png", 256, 384);
@@ -101,7 +100,21 @@ public class TileMap {
         mapObjects[35] = new Tile(true, "src/images/objects/1.png", 160, 288);
         mapObjects[36] = new Tile(true, "src/images/objects/2.png", 192, 288);
         mapObjects[37] = new Tile(true, "src/images/objects/8.png", 480, 288);
-        mapObjects1 = new Tile[0];
+        mapObjects1 = new Tile[14];
+        mapObjects1[0] = new Tile(true, "src/images/objects/1.png", 288, 416);
+        mapObjects1[1] = new Tile(true, "src/images/objects/2.png", 320, 416);
+        mapObjects1[2] = new Tile(true, "src/images/objects/3.png", 320, 480);
+        mapObjects1[3] = new Tile(true, "src/images/objects/4.png", 320, 512);
+        mapObjects1[4] = new Tile(true, "src/images/objects/3.png", 256, 480);
+        mapObjects1[5] = new Tile(true, "src/images/objects/4.png", 256, 512);
+        mapObjects1[6] = new Tile(true, "src/images/objects/3.png", 320, 512);
+        mapObjects1[7] = new Tile(true, "src/images/objects/4.png", 320, 544);
+        mapObjects1[8] = new Tile(true, "src/images/objects/3.png", 256, 512);
+        mapObjects1[9] = new Tile(true, "src/images/objects/4.png", 256, 544);
+        mapObjects1[10] = new Tile(true, "src/images/objects/3.png", 192, 480);
+        mapObjects1[11] = new Tile(true, "src/images/objects/4.png", 192, 512);
+        mapObjects1[12] = new Tile(true, "src/images/objects/3.png", 192, 512);
+        mapObjects1[13] = new Tile(true, "src/images/objects/4.png", 192, 544);
         map = new Tile[mapNum.length][mapNum[0].length];
         int x = 0;
         int y = 0;
@@ -150,5 +163,11 @@ public class TileMap {
     }
     public boolean[][] getFunction1() {
         return mapFunction1;
+    }
+    public void finalBoss() {
+        int getX = map1[13][5].getXCoord();
+        int getY = map1[13][5].getYCoord();
+        map1[13][5] = new Tile(false, "src/images/06.png", getX, getY);
+        map1[13][6] = new Tile(false, "src/images/06.png", getX + 32, getY);
     }
 }

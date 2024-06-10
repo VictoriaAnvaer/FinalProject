@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener{
+    private static int worldY = 150;
+    private static int worldX = -15;
     private TileMap mainMap;
     private Tile[][] currentMap;
     private Tile[] currentObjects;
@@ -19,14 +21,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int currentStarNum;
     private boolean[] pressedKeys;
     private boolean enemyFight;
-    private static int worldY = 150;
-    private static int worldX = -15;
     private int enemyKilled;
     // for welcome menu
     private boolean startMenu;
     private JTextField enterName;
     private JButton startButton;
     private BufferedImage menuBackground;
+    private BufferedImage elevatorBackground;
+    private String playerName;
 
     public GraphicsPanel(String name) {
         startMenu = false;
@@ -38,10 +40,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         currentStarList = new ArrayList<>();
         starList1 = new ArrayList<>();
         currentStarList.add(new Star(590, 440, new fightMap("src/images/menu.png", "src/images/enemy1.png", "AP Calculus: Double Integrals", 25)));
-        currentStarList.add(new Star(270, 440, new fightMap("src/images/menu.png", "src/images/enemy2.png", "AP World History: Magical World", 25)));
+        currentStarList.add(new Star(270, 440, new fightMap("src/images/menu.png", "src/images/enemy2.png", "AP World History: Magical Continents", 25)));
         starList1.add(new Star(302, 568, new fightMap("src/images/menu.png", "src/images/enemy3.png", "AP Biology: Flask of Germs", 25)));
+        starList1.add(new Star(24, 24, new fightMap("src/images/menu.png", "src/images/enemy4.png", "placeholder", 50)));
         //40
         currentStar = null;
+        currentStarNum = -1;
+        enemyFight = false;
+        enemyKilled = 2;
         pressedKeys = new boolean[128];
         addKeyListener(this);
         addMouseListener(this);
@@ -56,8 +62,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         add(startButton);
         try {
             menuBackground = ImageIO.read(new File("src/images/welcome/background.png"));
+            elevatorBackground = ImageIO.read(new File("src/images/elevatorBackground.png"));
         } catch (IOException e) {
         }
+        playerName = "";
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -93,7 +101,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 }
                 g.setColor(Color.WHITE);
                 g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-                g.drawString("CLASSES BEATEN: " + enemyKilled + "/4", 5, 25);
+                g.drawString("CLASSES BEATEN: " + enemyKilled + "/4", 5, 50);
+                g.drawString(playerName, 5, 25);
                 g.drawImage(player.getImage(), 300, 295, null);
             }
             if (enemyFight) {
@@ -110,6 +119,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                     currentStarList.remove(currentStarNum);
                     enemyKilled++;
                     enemyFight = false;
+                    if (enemyKilled == 3) {
+                        mainMap.finalBoss();
+                    }
                 }
             }
         }
@@ -130,6 +142,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
+            playerName = enterName.getText();
             startMenu = false;
             startButton.hide();
             enterName.hide();
