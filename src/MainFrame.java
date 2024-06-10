@@ -3,7 +3,7 @@ public class MainFrame implements Runnable {
     private GraphicsPanel panel;
     private JFrame frame;
     public MainFrame(String name) {
-        frame = new JFrame("");
+        frame = new JFrame("BTHS Adventure");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(640, 640);
         frame.setLocationRelativeTo(null);

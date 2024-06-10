@@ -100,7 +100,7 @@ public class TileMap {
         mapObjects[35] = new Tile(true, "src/images/objects/1.png", 160, 288);
         mapObjects[36] = new Tile(true, "src/images/objects/2.png", 192, 288);
         mapObjects[37] = new Tile(true, "src/images/objects/8.png", 480, 288);
-        mapObjects1 = new Tile[14];
+        mapObjects1 = new Tile[19];
         mapObjects1[0] = new Tile(true, "src/images/objects/1.png", 288, 416);
         mapObjects1[1] = new Tile(true, "src/images/objects/2.png", 320, 416);
         mapObjects1[2] = new Tile(true, "src/images/objects/3.png", 320, 480);
@@ -115,6 +115,11 @@ public class TileMap {
         mapObjects1[11] = new Tile(true, "src/images/objects/4.png", 192, 512);
         mapObjects1[12] = new Tile(true, "src/images/objects/3.png", 192, 512);
         mapObjects1[13] = new Tile(true, "src/images/objects/4.png", 192, 544);
+        mapObjects1[14] = new Tile (true, "src/images/objects/9.png", 288, 480);
+        mapObjects1[15] = new Tile (true, "src/images/objects/9.png", 224, 480);
+        mapObjects1[16] = new Tile (true, "src/images/objects/9.png", 160, 480);
+        mapObjects1[17] = new Tile (true, "src/images/objects/10.png", 64, 448);
+        mapObjects1[18] = new Tile(true, "src/images/objects/11.png", 64, 416);
         map = new Tile[mapNum.length][mapNum[0].length];
         int x = 0;
         int y = 0;
