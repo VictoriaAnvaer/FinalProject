@@ -9,7 +9,7 @@ public class Star {
     private int xCoord;
     private int yCoord;
     private fightMap fight;
-    Star(int xCoord, int yCoord) {
+    Star(int xCoord, int yCoord, fightMap fight) {
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         BufferedImage[][] runAnimation = new BufferedImage[1][4];
@@ -23,7 +23,7 @@ public class Star {
             }
         }
         animation = new Animation(runAnimation, 220, true);
-        fight = new fightMap("src/images/menu.png", "src/images/enemy1.png", "placeholder", 100);
+        this.fight = fight;
     }
     public int getXCoord() {
         return xCoord;

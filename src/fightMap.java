@@ -28,7 +28,7 @@ public class fightMap {
 
     }
     public Rectangle getQuit() {
-        Rectangle rect = new Rectangle(348, 403, 212, 65);
+        Rectangle rect = new Rectangle(370, 403, 212, 65);
         return rect;
 
     }

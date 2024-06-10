@@ -64,25 +64,31 @@ public class Player {
     }
 
 
-    public String isCollidingWIP(Tile[][] tileMap, int[][] function) {
+    public String isColliding(Tile[][] tileMap, boolean[][] functionMap) {
+        String elevator = "";
         for (int r = 0; r < tileMap.length; r++) {
             for (int c = 0; c < tileMap[r].length; c++) {
-                if (tileMap[r][c].getCollide() && tileMap[r][c].tileRect().intersects(playerRect())) {
-                    if (moveX < 0) {
-                        return "right";
-                    } else if (moveX > 0) {
-                        return "left";
-                    } else if (moveY < 0) {
-                        return "down";
-                    } else if (moveY > 0) {
-                        return "up";
+                if (tileMap[r][c].tileRect().intersects(playerRect())) {
+                    if (functionMap[r][c]) {
+                        elevator = "elevator";
+                    }
+                    if (tileMap[r][c].getCollide()) {
+                        if (moveX < 0) {
+                            return "right" + elevator;
+                        } else if (moveX > 0) {
+                            return "left" + elevator;
+                        } else if (moveY < 0) {
+                            return "down" + elevator;
+                        } else if (moveY > 0) {
+                            return "up" + elevator;
+                        }
                     }
                 }
             }
         }
         moveX = 0;
         moveY = 0;
-        return " ";
+        return elevator;
     }
 }
 
